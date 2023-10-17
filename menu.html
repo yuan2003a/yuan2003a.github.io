@@ -1,0 +1,53 @@
+<html>
+<head>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script>
+function geturl(txt) {
+	var formattedDate = new Date();
+	var msec = formattedDate.getMilliseconds();
+	var s = formattedDate.getSeconds();
+	var m = formattedDate.getMinutes();
+	var h =  formattedDate.getHours();
+	var hms = h + ":" + m + ":" + s + "." + msec;
+	var url0 = "https://www.bing.com/search?q=" + txt + "_"; // Razor%20Pages%20.net
+	var url = url0 + h + m + s + msec + "&FORM=R5FD";
+	return url;
+}
+$( function() {
+  $("#s1").text(1);
+  var url2 = geturl($("#txt").val());
+  //alert(url2);
+  $("#a1").attr('href', url2);
+});
+
+</script>
+<style>
+	a {margin: 0 1rem 0 0; word-break: break-word;}
+	#disappare{border:3px solid #ccc;border-radius: 5px;background: #fff;font-size: 20px;
+            width: 100vw;height: 100vh; position: fixed; top: 0; left: 0;}
+        #disappare p{padding: 5px;font-size: 16px;}
+</style>
+</head>
+<body style="font-size:1.5rem;">
+使用方法：點連結
+<a id="a1" target="main">GO <span id="s1"></span> !!!</a>
+<input type="text" id="txt" style="font-size:1.5rem;" value="Razor Pages .net"></input>
+<div id="disappare" style="display:none;">
+<p>2秒後自動消失</p>
+</div>
+<script type="text/javascript">
+    $(function(){
+        $("a").click(function(){
+            $("#disappare").show().delay(2000).hide(300);
+			var j = parseInt($("#s1").text());
+			j=j+1;
+			$("#s1").text(j);
+			//$("#s1").text($("#s1").text());
+			var url2 = geturl($("#txt").val());
+			//alert(url2);
+			$("#a1").attr('href', url2);
+        });
+    })
+</script>
+</body>
+</html>
