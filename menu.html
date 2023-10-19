@@ -1,5 +1,7 @@
+<!DOCTYPE html>
 <html>
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script>
 function geturl(txt) {
@@ -18,27 +20,52 @@ $( function() {
   var url2 = geturl($("#txt").val());
   //alert(url2);
   $("#a1").attr('href', url2);
+  let text = "Total width/height: " + screen.width + "*" + screen.height + "<br>" +
+"Available width/height: " + screen.availWidth + "*" + screen.availHeight ;
+/*+ "<br>" +
+"Color depth: " + screen.colorDepth + "<br>" +
+"Color resolution: " + screen.pixelDepth;*/
+  $("body").append(text);
 });
-
 </script>
 <style>
 	a {margin: 0 1rem 0 0; word-break: break-word;}
-	#disappare{border:3px solid #ccc;border-radius: 5px;background: #fff;font-size: 20px;
-            width: 100vw;height: 100vh; position: fixed; top: 0; left: 0;}
-        #disappare p{padding: 5px;font-size: 16px;}
+	@media screen and (max-width: 500px) {
+		body {font-size: 1.2rem;}
+		a {font-size: 1.2rem;}
+		input {font-size: 1.5rem;}
+	}
+	#divGray {
+    font-size: large;
+    width: 100vw;
+    height: 100vh;
+    z-index: 30000;
+    left: 0vw;
+    top: 0vh;
+    position: absolute;
+    background-color: dimgrey;
+    filter: Alpha(Opacity=70, Style=0);
+    opacity: 0.7;
+    color: white;
+    margin: 0 auto;
+    font-size: 2rem;
+    text-align: center;
+	}
 </style>
 </head>
-<body style="font-size:1.5rem;">
-使用方法：點連結
+<body>
+<div>使用方法：點連結
 <a id="a1" target="main">GO <span id="s1"></span> !!!</a>
-<input type="text" id="txt" style="font-size:1.5rem;" value="Razor Pages .net"></input>
-<div id="disappare" style="display:none;">
-<p>2秒後自動消失</p>
+<input type="text" id="txt" value="Razor Pages .net"></input></div>
+<div id="divGray" style="display:none;">
+<div style="position: absolute; top: 10vh; width: 100vw;">
+請稍等...
+</div>
 </div>
 <script type="text/javascript">
     $(function(){
         $("a").click(function(){
-            $("#disappare").show().delay(2000).hide(300);
+            $("#divGray").show().delay(2000).hide(300);
 			var j = parseInt($("#s1").text());
 			j=j+1;
 			$("#s1").text(j);
