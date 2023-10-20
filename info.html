@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script>
+$( function() {
+  let text = "Total width/height: " + screen.width + "*" + screen.height + "<br>" +
+"Available width/height: " + screen.availWidth + "*" + screen.availHeight ;
+var s = "";
+s += " 螢幕可用工作區 寬度x高度：" + window.screen.availWidth + "(" + screen.width + ")";
+s += " x " + window.screen.availHeight + "(" + screen.height + ")";
+/*+ "<br>" +
+"Color depth: " + screen.colorDepth + "<br>" +
+"Color resolution: " + screen.pixelDepth;*/
+$("body").append(s);
+$("body").append("<br>");
+$("body").append(text);
+});
+</script>
+</head>
+<body>
+</body>
+</html>

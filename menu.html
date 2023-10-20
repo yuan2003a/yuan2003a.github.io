@@ -15,17 +15,11 @@ function geturl(txt) {
 	var url = url0 + h + m + s + msec + "&FORM=R5FD";
 	return url;
 }
-$( function() {
-  $("#s1").text(1);
-  var url2 = geturl($("#txt").val());
-  //alert(url2);
-  $("#a1").attr('href', url2);
-  let text = "Total width/height: " + screen.width + "*" + screen.height + "<br>" +
-"Available width/height: " + screen.availWidth + "*" + screen.availHeight ;
-/*+ "<br>" +
-"Color depth: " + screen.colorDepth + "<br>" +
-"Color resolution: " + screen.pixelDepth;*/
-  $("body").append(text);
+$(function() {
+	$("#s1").text(1);
+	var url2 = geturl($("#txt").val());
+	//alert(url2);
+	$("#a1").attr('href', url2);
 });
 </script>
 <style>
