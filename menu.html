@@ -47,13 +47,22 @@ $(function() {
 	#txt {
 		width: 10rem;
 	}
+	#v1 {
+		width: 150px;
+		height: 50px;
+		border: 1px green solid;
+		float: left;
+		display: flex;
+		align-items: center;
+		justify-content: space-evenly;
+	}
 </style>
 </head>
 <body>
 <div>
 	<a id="a1" target="main">
-		<div style="width:150px; height:50px; border: 1px green solid; float:left;">
-		GO <span id="s1"></span>!!!
+		<div id="v1">
+		點我，GO <span id="s1"></span>!!!
 		</div>
 	</a>
 	<input type="text" id="txt" value="Razor Pages .net"></input>
