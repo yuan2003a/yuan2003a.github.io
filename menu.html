@@ -4,6 +4,63 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script>
+var GlobalKeywordArray = [];
+var GlobalKeywordIndex = 0;
+
+/**
+ * 初始化全域關鍵字序列（打亂順序）
+ * @param {string} str - 關鍵字字串，使用 ^ 分隔
+ */
+function initGlobalKeywords(str) {
+/*
++ "^netflix KPop Demon Hunters^netflix 2026 日劇^netflix 2026 韓劇"
++ "^經典賽^美伊大戰*/
+const data = [
+  { kind: "日劇", value: "彈珠汽水猴子^九條的大罪^電台明星" },
+  { kind: "韓劇", value: "未婚男女的效率戀愛" },
+  { kind: "優惠", value: "Claude^OpenAI^Anthropic" },
+  { kind: "漫畫", value: "藤田和日郎^井上雄彥^手塚治虫^海賊王" },
+  { kind: "明星", value: "黑島結菜^唐田英里佳^milet^韓志旼^井上真央^姜惠元^杉咲花^池田依來沙^豐嶋花^桃月梨子^NON^石川戀^aimer" },
+  { kind: "股價", value: "台積電^NVIDIA^5347" },
+  { kind: "時事", value: "nasa^月球" },
+];
+const result = flattenData(data);
+console.log(result);
+str = result;
+    GlobalKeywordArray = str.split("^").sort(() => Math.random() - 0.5);
+    GlobalKeywordIndex = 0;
+}
+
+/**
+ * 取得下一個不重複的全域關鍵字
+ * @returns {string|null} 下一個關鍵字，取完回傳 null
+ */
+function getNextGlobalKeyword() {
+    if (GlobalKeywordIndex >= GlobalKeywordArray.length) return null;
+    const kw = GlobalKeywordArray[GlobalKeywordIndex];
+    GlobalKeywordIndex++;
+    return kw;
+}
+
+/**
+ * 取得目前取到第幾個關鍵字
+ * @returns {number} 已取出的數量 (1~total)
+ */
+function getGlobalKeywordPosition() {
+    return GlobalKeywordIndex;
+}
+
+/**
+ * 重置全域關鍵字序列（可選：再打亂）
+ * @param {boolean} reshuffle - 是否重新打亂順序
+ */
+function resetGlobalKeywords(reshuffle = true) {
+    if (reshuffle) {
+        GlobalKeywordArray.sort(() => Math.random() - 0.5);
+    }
+    GlobalKeywordIndex = 0;
+}
+
 function geturl(txt) {
 	var formattedDate = new Date();
 	var msec = formattedDate.getMilliseconds();
@@ -15,11 +72,50 @@ function geturl(txt) {
 	var url = url0 + h + m + s + msec + "&FORM=R5FD";
 	return url;
 }
+/**
+ * 從以 ^ 分隔的字串中隨機取得一個關鍵字
+ * @param {string} str - 關鍵字字串，使用 ^ 分隔
+ * @returns {string} 隨機選取的關鍵字
+ */
+function getRandomKeyword(str, idx) {
+    const arr = str.split("^");
+    return arr[Math.floor(Math.random() * arr.length)];
+}
+
+function geturl3(){
+	var txt = getNextGlobalKeyword();
+	var url0 = "https://www.bing.com/search?q=" + txt + ""; // Razor%20Pages%20.net
+	//var url = url0 + h + m + s + msec + "&FORM=R5FD";
+	var url = url0 + "&FORM=R5FD";
+	return url;
+}
+
+function flattenData(arr) {
+  return arr
+    .flatMap(item =>
+      item.value.split("^").map(v => `${item.kind} ${v}`)
+    )
+    .join("^");
+}
+
+const keywords = "";
+
+function geturl2() {
+	var txt = getRandomKeyword(keywords)
+	var url0 = "https://www.bing.com/search?q=" + txt + ""; // Razor%20Pages%20.net
+	//var url = url0 + h + m + s + msec + "&FORM=R5FD";
+	var url = url0 + "&FORM=R5FD";
+	return url;
+}
 $(function() {
 	$("#s1").text(1);
-	var url2 = geturl($("#txt").val());
+	//var url2 = geturl($("#txt").val());
+	var url2 = geturl2();
 	//alert(url2);
 	$("#a1").attr('href', url2);
+	
+	
+	initGlobalKeywords(keywords);
 });
 </script>
 <style>
@@ -66,6 +162,7 @@ $(function() {
 		</div>
 	</a>
 	<input type="text" id="txt" value="tw blazor .net"></input>
+	<input type="text" id="idx" value="0"></input>
 </div>
 <div id="divGray" style="display:none;">
 <div style="position: absolute; top: 50vh; width: 100vw;">
@@ -80,7 +177,8 @@ $(function() {
 			j=j+1;
 			$("#s1").text(j);
 			//$("#s1").text($("#s1").text());
-			var url2 = geturl($("#txt").val());
+			//var url2 = geturl($("#txt").val());
+			var url2 = geturl3();
 			//alert(url2);
 			$("#a1").attr('href', url2);
         });
